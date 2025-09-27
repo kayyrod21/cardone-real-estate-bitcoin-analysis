@@ -60,4 +60,10 @@ The HPR (Halving Price Regression) model smooths out hype cycles and shows a con
 - Even conservative BTC growth assumptions improve the overall IRR and NPV.
 - In optimistic halving scenarios, Bitcoin could eclipse real estate’s contribution.
 
+## 8. Glossary of Financial Metrics
+**IRR (Internal Rate of Return):** The annualized rate of return at which the net present value (NPV) of all future cash flows equals zero. In other words, it’s the effective yearly return considering both the size *and* timing of cash flows. Useful for comparing projects.
+
+**NPV (Net Present Value):** The dollar value today of all expected future cash flows (rents, distributions, property sale, Bitcoin liquidation), discounted back at a chosen rate (e.g., loan interest or required return). A positive NPV means the project creates value above its cost of capital.
+
+👉 *Quick takeaway:* IRR tells you the % return. NPV tells you the $ value created today. Both help investors judge if the Real Estate + Bitcoin strategy is attractive.
 ➡️ **Overall Takeaway**: This hybrid model balances the **security of property** with the **convexity of Bitcoin**, making it a stable bet with asymmetric upside.

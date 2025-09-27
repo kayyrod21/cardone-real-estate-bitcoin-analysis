@@ -29,13 +29,12 @@ scenario_summaries = {}
 
 for scenario in scenarios:
     btc_projection = hpr_df[scenario].values[:120]  # 10 years monthly
-    df, scen_summary = run_hybrid_model(btc_growth_rate=0,  # override with projection
-                                        hold_period_years=10)
+    df, scen_summary = run_hybrid_model(btc_growth_rate=0, hold_period_years=10)
     scen_summary["Final_BTC_Value"] = btc_projection[-1]  # use projection endpoint
     scenario_summaries[scenario] = scen_summary
 
-# Build REPORT.md
-with open("outputs/report.md", "w") as f:
+# --- Build REPORT.md at repo root ---
+with open("REPORT.md", "w") as f:
     f.write("# Real Estate + Bitcoin Portfolio Analysis\n\n")
     f.write("This project explores Grant Cardone's strategy of using rental "
             "cash flow to accumulate Bitcoin. It compares real estate-only returns "
@@ -70,7 +69,7 @@ with open("outputs/report.md", "w") as f:
     f.write(f"- **IRR**: {summary['IRR']*100:.2f}%\n")
     f.write(f"- **NPV**: ${summary['NPV']:,.0f}\n\n")
 
-        # --- Section 4b: Capital Gains Breakdown ---
+    # --- Section 4b: Capital Gains Breakdown ---
     f.write("## 4b. Capital Gains Breakdown (Base Case)\n")
 
     initial_equity = summary["Equity_Investment"]
@@ -79,7 +78,6 @@ with open("outputs/report.md", "w") as f:
     sale_proceeds = summary["Sale_Proceeds"]
     total_distributions = summary["Total_Cash_Distributions"]
 
-    # Property appreciation (approximate: final value minus equity invested)
     property_appreciation = final_property_value - initial_equity
     btc_gains = final_btc_value
     total_value = sale_proceeds + final_btc_value + total_distributions
@@ -90,12 +88,11 @@ with open("outputs/report.md", "w") as f:
     f.write(f"- **Cash Distributions**: ${total_distributions:,.0f}\n")
     f.write(f"- **Total Value at Exit**: ${total_value:,.0f}\n")
     f.write(f"- **Net Gain (Total – Equity Investment)**: ${total_gain:,.0f}\n\n")
-    # --- Section 4c: Visual Breakdown ---
+
     f.write("## 4c. Visual Breakdown of Capital Gains\n")
     f.write("This stacked bar chart shows the relative contributions of "
             "Property Appreciation, BTC Gains, and Cash Distributions.\n\n")
-    f.write("![Capital Breakdown](outputs/capital_breakdown.png)\n\n")
-
+    f.write("![Capital Breakdown](outputs/cap_breakdown.png)\n\n")
 
     # --- Section 5: Halving Scenario Metrics ---
     f.write("## 5. Halving Scenario Metrics\n")
@@ -119,8 +116,25 @@ with open("outputs/report.md", "w") as f:
     f.write("- Bitcoin adds asymmetric upside, with convexity tied to the halving cycles.\n")
     f.write("- Even conservative BTC growth assumptions improve the overall IRR and NPV.\n")
     f.write("- In optimistic halving scenarios, Bitcoin could eclipse real estate’s contribution.\n\n")
+       
+        # --- Section 8: Glossary ---
+    f.write("## 8. Glossary of Financial Metrics\n")
+    f.write("**IRR (Internal Rate of Return):** The annualized rate of return at which the "
+            "net present value (NPV) of all future cash flows equals zero. In other words, "
+            "it’s the effective yearly return considering both the size *and* timing of "
+            "cash flows. Useful for comparing projects.\n\n")
+
+    f.write("**NPV (Net Present Value):** The dollar value today of all expected future "
+            "cash flows (rents, distributions, property sale, Bitcoin liquidation), "
+            "discounted back at a chosen rate (e.g., loan interest or required return). "
+            "A positive NPV means the project creates value above its cost of capital.\n\n")
+
+    f.write("👉 *Quick takeaway:* IRR tells you the % return. NPV tells you the $ value "
+            "created today. Both help investors judge if the Real Estate + Bitcoin "
+            "strategy is attractive.\n")
+
 
     f.write("➡️ **Overall Takeaway**: This hybrid model balances the **security of property** "
             "with the **convexity of Bitcoin**, making it a stable bet with asymmetric upside.\n")
 
-print("\n✅ REPORT.md has been generated successfully at outputs/report.md")
+print("\n✅ REPORT.md has been generated successfully at repo root")

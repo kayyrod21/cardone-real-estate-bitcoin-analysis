@@ -28,5 +28,5 @@ plt.legend()
 plt.tight_layout()
 
 # Save chart
-plt.savefig("outputs/capital_breakdown.png")
+plt.savefig("outputs/cap_breakdown.png")
 plt.close()

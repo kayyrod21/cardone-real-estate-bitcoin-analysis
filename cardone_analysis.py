@@ -113,9 +113,9 @@ def run_hybrid_model(
         "Final_Property_Value": final_property_value,
         "Final_BTC_Value": final_btc_value,
         "Sale_Proceeds": sale_proceeds,
-        "Total_Cash_Distributions": sum(cash_distributions),
         "IRR": annual_irr,
         "NPV": npv,
+        "Total_Cash_Distributions": sum(cash_distributions),
     }
 
     return df, summary
