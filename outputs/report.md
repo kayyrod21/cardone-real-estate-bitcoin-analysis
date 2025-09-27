@@ -37,7 +37,7 @@ These are the outputs from the base case (10% BTC growth, 10-year hold period):
 ## 4c. Visual Breakdown of Capital Gains
 This stacked bar chart shows the relative contributions of Property Appreciation, BTC Gains, and Cash Distributions.
 
-![Capital Breakdown](outputs/capital_breakdown.png)
+![Capital Breakdown](outputs/cap_breakdown.png)
 
 ## 5. Halving Scenario Metrics
 Here we compare outcomes under the HPR (Halving Price Regression) model:
