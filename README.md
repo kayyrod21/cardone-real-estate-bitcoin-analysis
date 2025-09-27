@@ -36,7 +36,12 @@ This project explores three investment strategies through quantitative modeling 
 
 ### 3. Portfolio Composition Evolution
 ![Portfolio Composition](outputs/portfolio_comp.png)
-*How Bitcoin allocation grows over time through compounding*
+*Line chart showing Bitcoin vs Real Estate allocation over time*
+
+![Portfolio Composition (Stacked)](outputs/portfolio_comp_alt.png)
+*Alternative stacked area chart view of portfolio composition*
+
+> **💡 Visualization Options**: The portfolio composition can be viewed as either a clean line chart (default) or a normalized stacked area chart. Both show the same data but offer different perspectives on allocation changes over time.
 
 ### 4. Capital Gains Breakdown
 ![Capital Breakdown](outputs/cap_breakdown.png)
@@ -106,6 +111,21 @@ python3 make_report.py
 
 This generates all visualizations and updates the analysis documents.
 
+### Generate Alternative Visualizations
+```python
+# Generate both portfolio composition styles
+from portfolio_comp import plot_portfolio_comp
+from cardone_analysis import run_hybrid_model
+
+df, _ = run_hybrid_model()
+
+# Line chart (default)
+plot_portfolio_comp(df, "outputs/portfolio_comp.png", mode="line")
+
+# Stacked area chart
+plot_portfolio_comp(df, "outputs/portfolio_comp_alt.png", mode="stacked")
+```
+
 ---
 
 ## 📁 Project Structure
@@ -117,7 +137,7 @@ This generates all visualizations and updates the analysis documents.
 │   └── make_report.py           # Main execution script
 ├── 📈 Visualization Scripts
 │   ├── overall.py               # Strategy comparison heatmap
-│   ├── portfolio_comp.py        # Composition over time
+│   ├── portfolio_comp.py        # Composition over time (2 styles)
 │   ├── portfolio_pie.py         # Allocation pie charts
 │   ├── cap_breakdown.py         # Proportional gains
 │   └── capital_breakdown.py     # Absolute gains
@@ -128,7 +148,8 @@ This generates all visualizations and updates the analysis documents.
 └── 📊 outputs/                  # Generated visualizations
     ├── overall.png
     ├── btc_regression.png
-    ├── portfolio_comp.png
+    ├── portfolio_comp.png       # Line chart
+    ├── portfolio_comp_alt.png   # Stacked area chart
     ├── portfolio_pie.png
     ├── cap_breakdown.png
     └── capital_breakdown.png

@@ -36,13 +36,23 @@ Chart: `btc_regression.png`
 
 ## 3. Portfolio Composition Over Time
 
-Chart: `portfolio_comp.png`
-
-- Shows evolving weight of property vs BTC in the portfolio.  
-- Real estate dominates early, but BTC grows more significant as compounding kicks in.  
-- Supports the thesis: even modest BTC allocations become impactful over time.  
+### 3.a Line Chart View (`portfolio_comp.png`)
+- Clean line chart showing evolving weight of property vs BTC in the portfolio
+- Real estate dominates early, but BTC grows more significant as compounding kicks in
+- Supports the thesis: even modest BTC allocations become impactful over time
 
 ![Portfolio Composition](outputs/portfolio_comp.png)
+
+### 3.b Stacked Area Chart View (`portfolio_comp_alt.png`)
+- Alternative visualization showing the same data as normalized stacked areas
+- Areas always add to 100%, emphasizing the relative allocation changes
+- Provides a different perspective on portfolio composition evolution
+
+![Portfolio Composition (Stacked)](outputs/portfolio_comp_alt.png)
+
+> **Visualization Options**: The `portfolio_comp.py` script supports two modes:
+> - `mode="line"` (default): Clean line chart for precise tracking
+> - `mode="stacked"`: Normalized stacked area chart for relative allocation view
 
 ## 4. Portfolio Allocation: Start vs End
 
