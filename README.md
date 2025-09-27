@@ -1,50 +1,48 @@
 # Real Estate + Bitcoin Portfolio Analysis
 
-This project explores **Grant Cardone’s proposal** of combining real estate cash flows with Bitcoin accumulation.  
-By modeling cash flows from a multifamily property and allocating part of the free cash flow to Bitcoin,  
-we can evaluate whether this hybrid portfolio offers **stable income + asymmetric upside**.
+This project explores Grant Cardone's strategy of using rental cash flow to accumulate Bitcoin. It compares real estate-only returns versus a hybrid allocation into BTC, modeled under different halving scenarios.
 
----
+## 1. Total Portfolio Value Under Halving Scenarios
+This chart shows how the portfolio grows over 10 years, depending on which Bitcoin halving band (Blue, Green, Yellow, Red) it follows.
 
-## Key Findings
+![Overall Portfolio](outputs/overall.png)
+
+## 2. Portfolio Composition Over Time
+Even small BTC allocations compound over time.
+
+![Portfolio Composition](outputs/portfolio_comp.png)
+
+## 3. Portfolio Allocation: Start vs End
+By Year 10, Bitcoin grows to ~7–10% under base case assumptions.
+
+![Portfolio Pie](outputs/portfolio_pie.png)
+
+## 4. Base Case Summary Metrics
+- **Equity Investment**: $94,000,000
+- **Final Property Value**: $315,820,349
+- **Final BTC Value**: $24,877,999
+- **Sale Proceeds**: $174,820,349
+- **IRR**: 8.68%
+- **NPV**: $38,891,861
+
+## 5. Capital Gains Breakdown
+Proportional contribution of Property, BTC, and Cash:
+
+![Capital Breakdown](outputs/cap_breakdown.png)
+
+Absolute dollar terms (at exit):
+
+![Capital Breakdown at Exit](outputs/capital_breakdown.png)
+
+## 6. Bitcoin Halving Regression Context
+The HPR (Halving Price Regression) model smooths out hype cycles and shows a conservative long-term Bitcoin price trajectory.
+
+![BTC Regression](outputs/btc_regression.png)
+
+## 7. Key Findings
 - Real estate provides stable appreciation and steady cash flow.
-- Even small Bitcoin allocations compound dramatically over a 10-year horizon.
-- By the end of the holding period, **Bitcoin gains exceed cash flow distributions** (in USD terms), highlighting Bitcoin’s role as both an inflation hedge and an asymmetric bet.
-- In optimistic halving scenarios, Bitcoin’s contribution can eclipse real estate.
+- Bitcoin adds asymmetric upside, with convexity tied to the halving cycles.
+- BTC gains exceeded cash distributions — showing how liquidity in USD terms underperforms vs appreciating assets.
+- Even conservative BTC assumptions improve IRR and NPV.
 
-📊 See the full deep-dive here → [REPORT.md](REPORT.md)
-
----
-
-## Highlight Chart: Capital Gains Breakdown
-This chart shows where investor returns really come from over a 10-year hold.  
-While real estate remains the backbone, **Bitcoin eventually contributes more than cash distributions**.
-
-![Capital Breakdown](outputs/capital_breakdown.png)
-
----
-
-## Why This Matters
-This analysis sits at the intersection of:
-- 🏠 **Real Estate Investing** – traditionally valued for stability, tax benefits, and long-term debt leverage.
-- ₿ **Bitcoin** – a scarce digital asset with halving cycles and exponential upside potential.
-- 💡 **Hybrid Portfolio Construction** – balancing stability with convexity.
-
----
-
-## Related Reading
-To give context for this hybrid strategy:
-- [Grant Cardone: “Combining RE & BTC and get a super power investment” (X post)](https://x.com/GrantCardone/status/1959015144156987876)  
-- [NYTimes: Bitcoin’s Place in Institutional Portfolios](https://www.nytimes.com/) *(example, can be swapped for a better source)*  
-- [Fidelity Digital Assets: Bitcoin First – Why Investors Need to Consider Bitcoin Separately](https://www.fidelitydigitalassets.com/)  
-- [ARK Invest: Big Ideas – Bitcoin as a Monetary Asset](https://ark-invest.com/big-ideas/)  
-
----
-
-## Tech & Methods
-- Python financial modeling (cash flows, IRR, NPV).  
-- Custom Bitcoin Halving Price Regression (HPR) model.  
-- Matplotlib for portfolio and scenario visualization.  
-- GitHub repo structured as a **sample financial analysis project** for recruiters.
-
----
+➡️ **Overall Takeaway**: This hybrid model balances the **security of property** with the **convexity of Bitcoin**, making it a stable bet with asymmetric upside.

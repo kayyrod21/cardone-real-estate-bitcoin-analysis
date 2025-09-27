@@ -1,24 +1,41 @@
+# overall.py
 import matplotlib.pyplot as plt
-from cardone_analysis import run_hybrid_model
-from btc_scenarios import generate_hpr_paths
+import seaborn as sns
+import pandas as pd
 
-# Run base case
-df, summary = run_hybrid_model()
-hpr_df = generate_hpr_paths(10)  # 10 years
+def plot_overall(df=None, save_path="outputs/overall.png"):
+    # Define qualitative comparison
+    data = {
+        "Real Estate": {
+            "Liquidity": 1,        # Low
+            "Capital Lockup": 1,   # High lockup (bad)
+            "Human Effort": 1,     # High (bad)
+            "Return Potential": 4  # Strong returns
+        },
+        "Bitcoin": {
+            "Liquidity": 5,        # High
+            "Capital Lockup": 5,   # None (good)
+            "Human Effort": 5,     # None (good)
+            "Return Potential": 3  # Convex but volatile
+        },
+        "Hybrid": {
+            "Liquidity": 3,        # Medium
+            "Capital Lockup": 3,   # Medium
+            "Human Effort": 3,     # Balanced
+            "Return Potential": 5  # Best balance
+        }
+    }
 
-scenarios = ["Blue", "Green", "Yellow", "Red"]
+    # Convert to DataFrame for heatmap
+    df = pd.DataFrame(data).T
 
-plt.figure(figsize=(10,6))
-for s in scenarios:
-    btc_projection = hpr_df[s].values[:len(df)]
-    btc_value = df["BTC_Units"].values * btc_projection
-    portfolio_value = df["Property_Value"].values + btc_value
-    plt.plot(df["Month"], portfolio_value, label=f"{s} Scenario")
+    plt.figure(figsize=(8, 5))
+    sns.heatmap(df, annot=True, cmap="RdYlGn", cbar=True, linewidths=0.5,
+                linecolor="gray", fmt="d", vmin=1, vmax=5)
 
-plt.title("Total Portfolio Value Under Halving Scenarios")
-plt.xlabel("Month")
-plt.ylabel("USD")
-plt.legend()
-plt.tight_layout()
-plt.savefig("outputs/overall.png", dpi=300)
-plt.close()
+    plt.title("Overall Comparison: Real Estate vs Bitcoin vs Hybrid", fontsize=14, pad=12)
+    plt.ylabel("Portfolio Type")
+    plt.xlabel("Evaluation Criteria")
+    plt.tight_layout()
+    plt.savefig(save_path, dpi=200)
+    plt.close()

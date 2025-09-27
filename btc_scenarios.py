@@ -1,120 +1,63 @@
-"""
-btc_scenarios.py
-
-Generate Bitcoin Halving Price Regression (HPR) paths for scenario analysis.
-"""
-
+# btc_scenarios.py
 import numpy as np
 import pandas as pd
-import yfinance as yf
 import matplotlib.pyplot as plt
-import datetime
+import yfinance as yf
 
-# -----------------------------
-# Halving dates (for plotting)
-# -----------------------------
-halving_dates = [
-    datetime.datetime(2012, 11, 28),
-    datetime.datetime(2016, 7, 9),
-    datetime.datetime(2020, 5, 11),
-    datetime.datetime(2024, 4, 20),  # latest halving
-]
+def plot_btc_regression(save_path="outputs/btc_regression.png"):
+    # Download BTC price history
+    btc = yf.download("BTC-USD", start="2010-01-01")[["Close"]].dropna()
+    btc["Days"] = (btc.index - btc.index.min()).days
 
-# -----------------------------
-# 1. HPR Formula
-# log10(price) = 2.6521 * ln(x) - 18.163
-# -----------------------------
-def hpr_price(days_since_genesis):
-    # Avoid log(0)
-    days_since_genesis = np.where(days_since_genesis <= 0, 1, days_since_genesis)
-    # Apply regression formula
-    return 10 ** (2.6521 * np.log(days_since_genesis) - 18.163)
-# -----------------------------
-# 2. Generate Forward Projections
-# -----------------------------
-def generate_hpr_paths(years_ahead=10):
-    start_date = datetime.datetime(2010, 1, 1)  # Bitcoin genesis
-    end_date = datetime.datetime.today() + datetime.timedelta(days=365 * years_ahead)
-    dates = pd.date_range(start_date, end_date, freq="ME")  # monthly end
+    # Regression on log-log
+    x = np.log(np.arange(1, len(btc) + 1)).flatten()
+    y = np.log(btc["Close"].values).flatten()
+    coeffs = np.polyfit(x, y, 1)
+    poly = np.poly1d(coeffs)
 
-    days = (dates - start_date).days
-    days = np.where(days == 0, 1, days)  # avoid log(0) error
+    # Generate extended future timeline (to 2035)
+    future_dates = pd.date_range(start=btc.index.min(), end="2035-01-01", freq="D")
+    future_x = np.log(np.arange(1, len(future_dates) + 1))
 
-    base = hpr_price(days)
-    blue = base
-    green = base * 2   # ~1 year ahead
-    yellow = base * 4  # ~2 years ahead
-    orange = base * 8  # ~3 years ahead
-    red = base * 16    # ~4 years ahead
+    # Base regression
+    base = np.exp(poly(future_x))
 
-    df = pd.DataFrame({
-        "Date": dates,
-        "Blue": blue,
-        "Green": green,
-        "Yellow": yellow,
-        "Orange": orange,
-        "Red": red
-    })
-    df.set_index("Date", inplace=True)
-    return df
-
-# -----------------------------
-# 3. Plot Historical vs HPR
-# -----------------------------
-def plot_hpr():
-    btc = yf.download("BTC-USD", start="2010-01-01")["Close"].to_frame("BTC_Price")
-    hpr_df = generate_hpr_paths(15)
-
-    plt.figure(figsize=(10,6))
-    plt.plot(btc.index, btc["BTC_Price"], label="BTC Price", color="black")
-    plt.plot(hpr_df.index, hpr_df["Blue"], label="HPR Base (Blue)", color="blue")
-    plt.plot(hpr_df.index, hpr_df["Green"], label="Green (1 yr ahead)", color="green")
-    plt.plot(hpr_df.index, hpr_df["Yellow"], label="Yellow (2 yr ahead)", color="gold")
-    plt.plot(hpr_df.index, hpr_df["Orange"], label="Orange (3 yr ahead)", color="orange")
-    plt.plot(hpr_df.index, hpr_df["Red"], label="Red (4 yr ahead)", color="red")
-    for h in halving_dates:
-        plt.axvline(h, color="cyan", linestyle="--", alpha=0.6)
-
-    plt.yscale("log")
-    plt.title("Bitcoin Historical Price vs Halving Price Regression")
-    plt.xlabel("Date")
-    plt.ylabel("BTC Price (Log Scale)")
-    plt.legend()
-    plt.tight_layout()
-
-    # ✅ Save, no show
-    plt.savefig("outputs/btc_regression.png")
-    plt.close()
-
-
-if __name__ == "__main__":
-    btc = yf.download("BTC-USD", start="2010-01-01")["Close"]
-
-    hpr_df = generate_hpr_paths(15)
-
-    plt.figure(figsize=(10,6))
-    plt.plot(btc.index, btc, label="BTC Price", color="black")
-    plt.plot(hpr_df.index, hpr_df["Blue"], label="HPR Base (Blue)", color="blue")
-    plt.plot(hpr_df.index, hpr_df["Green"], label="Green (1 yr ahead)", color="green")
-    plt.plot(hpr_df.index, hpr_df["Yellow"], label="Yellow (2 yr ahead)", color="gold")
-    plt.plot(hpr_df.index, hpr_df["Orange"], label="Orange (3 yr ahead)", color="orange")
-    plt.plot(hpr_df.index, hpr_df["Red"], label="Red (4 yr ahead)", color="red")
-
-    anchors = {
-        "2012-11-28": 12.33,
-        "2016-07-09": 651.94,
-        "2020-05-11": 8591.65,
+    # Apply vertical offsets (log-space shifts)
+    curves = {
+        "HPR Base": base,
+        "HPR +1yr": np.exp(np.log(base) + 0.5*np.log(2)),  # smaller offset
+        "HPR +2yr": np.exp(np.log(base) + 1*np.log(2)),
+        "HPR +3yr": np.exp(np.log(base) + 1.5*np.log(2)),
+        "HPR +4yr": np.exp(np.log(base) + 2*np.log(2)),
     }
-    for date, price in anchors.items():
-        plt.scatter(pd.to_datetime(date), price, color="red", zorder=5)
 
+    # Plot
+    plt.figure(figsize=(12, 7))
+    plt.plot(btc.index, btc["Close"], color="black", label="BTC Price", linewidth=1.8)
+
+    colors = ["blue", "green", "yellow", "orange", "red"]
+    for (label, series), c in zip(curves.items(), colors):
+        plt.plot(future_dates, series, color=c, label=label, linewidth=1.5)
+
+    # Halving events
+    halvings = ["2020-05-11", "2024-04-20", "2028-04-10", "2032-04-01"]
+    for h in halvings:
+        plt.axvline(pd.to_datetime(h), linestyle="--", color="cyan", alpha=0.7)
+
+    plt.xlim(pd.to_datetime("2020-01-01"), pd.to_datetime("2035-01-01"))
     plt.yscale("log")
-    plt.title("Bitcoin Historical Price vs HPR Model")
-    plt.xlabel("Date")
-    plt.ylabel("BTC Price (Log Scale)")
-    plt.legend()
-    plt.tight_layout()
 
-    # ✅ Save, no show
-    plt.savefig("outputs/btc_regression.png")
+     # Y-axis zoom (cut empty log space)
+    ymin = float(btc["Close"].loc["2020-01-01":].min()) * 0.8
+    ymax = float(max(curves["HPR +4yr"])) * 1.2
+    plt.ylim(ymin, ymax)
+
+
+    plt.title("Bitcoin Regression Model with Extended Rainbow (2020–2035)")
+    plt.ylabel("BTC Price (Log Scale)")
+    plt.xlabel("Date")
+    plt.legend()
+    plt.grid(True, which="both", linestyle="--", alpha=0.5)
+
+    plt.savefig(save_path, dpi=200)
     plt.close()
