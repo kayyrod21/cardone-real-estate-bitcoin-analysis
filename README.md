@@ -1,79 +1,69 @@
-# Cardone Real Estate + Bitcoin Analysis
+# Real Estate + Bitcoin Portfolio Analysis
 
-This repository contains a financial model exploring how Cardone Capital's hybrid
-real‑estate‑and‑Bitcoin funds (such as the 10X Boca Raton and 10X Miami River
-funds) might perform under a range of assumptions. The model reflects the
-strategy described in public sources, in which income‑generating multifamily
-properties purchase BTC with monthly cash flow and use long‑term, low‑interest
-debt to finance additional Bitcoin purchases.
+This project explores Grant Cardone's strategy of using rental cash flow to accumulate Bitcoin. It compares real estate-only returns versus a hybrid allocation into BTC, modeled under different halving scenarios.
 
-## Project Background
+## 1. Total Portfolio Value Under Halving Scenarios
+This chart shows how the portfolio grows over 10 years, depending on which Bitcoin halving band (Blue, Green, Yellow, Red) it follows.
 
-Grant Cardone’s investment firm has launched several dual‑asset funds that
-combine tangible multifamily real estate with a Bitcoin treasury.  For example,
-the 10X Miami River Bitcoin Fund is anchored by a 346‑unit Class A property in
-Miami and holds roughly \$15 million worth of BTC; it converts a portion of
-monthly cash flow into Bitcoin【556331809607434†L28-L37】.  The 10X Boca Raton
-Bitcoin Fund involves a 366‑unit property and adds \$100 million (about
-1 000 BTC) to the fund’s Bitcoin treasury, reinvesting rental income into BTC【140341013969425†L23-L45】.
-By August 2025 Cardone Capital had already purchased 1 000 BTC and planned to
-expand its holdings to 4 000 BTC through refinancing and additional fund
-raises【300627256761090†L90-L96】.  These funds advertise an 8 % preferred return
-and target capital raises between \$150 million and \$200 million【386761112370758†L15-L47】.
+![Overall Portfolio](outputs/overall.png)
 
-The core thesis is that real estate provides stable cash flow, collateral for
-long‑term debt and tax advantages, while Bitcoin offers high‑beta upside and a
-hedge against inflation.  By combining the two, investors obtain both
-stability and potential exponential growth【300627256761090†L62-L88】.
+## 2. Portfolio Composition Over Time
+The stack plot illustrates how the share of Bitcoin vs Real Estate evolves. Even small BTC allocations compound over time.
 
-## What This Project Does
+![Portfolio Composition](outputs/portfolio_comp.png)
 
-The `cardone_analysis.py` script builds a simplified cash‑flow model for such a
-hybrid fund.  It allows you to adjust assumptions about rents, expenses,
-financing, appreciation, Bitcoin price growth and the percentage of cash flow
-devoted to BTC purchases.  The model then:
+## 3. Portfolio Allocation: Start vs End
+Comparing Year 0 and Year 10. Initially, the portfolio is nearly 100% real estate. By Year 10, Bitcoin has grown to ~7–10% under base case assumptions.
 
-* Projects monthly net operating income (NOI) from the property.
-* Calculates free cash flow after paying interest on debt.
-* Allocates a user‑specified share of cash flow to buy Bitcoin at a simulated
-  price path and tracks BTC holdings over time.
-* Computes remaining cash distributions to investors.
-* Performs a sale at the end of the holding period, liquidating the property
-  and Bitcoin holdings to determine final proceeds.
-* Calculates the investor’s internal rate of return (IRR) and net present
-  value (NPV).
+![Portfolio Pie](outputs/portfolio_pie.png)
 
-You can modify the assumptions by editing the parameters in the `run_hybrid_model`
-function call.  The script is written for clarity and should serve as a good
-starting point for more sophisticated analyses, such as adding principal
-amortization, pref returns or stochastic Bitcoin price simulations.
+## 4. Base Case Summary Metrics
+These are the outputs from the base case (10% BTC growth, 10-year hold period):
 
-## Usage
+- **Equity Investment**: $94,000,000
+- **Final Property Value**: $315,820,349
+- **Final BTC Value**: $24,877,999
+- **Sale Proceeds**: $174,820,349
+- **IRR**: 8.68%
+- **NPV**: $38,891,861
 
-Clone the repository and install the dependencies (``numpy``, ``pandas`` and
-``numpy_financial``).  Then run the script directly:
+## 4b. Capital Gains Breakdown (Base Case)
+- **Property Appreciation**: $221,820,349
+- **BTC Gains**: $24,877,999
+- **Cash Distributions**: $14,818,800
+- **Total Value at Exit**: $214,517,148
+- **Net Gain (Total – Equity Investment)**: $120,517,148
 
-```bash
-python cardone_analysis.py
-```
+## 4c. Visual Breakdown of Capital Gains
+This stacked bar chart shows the relative contributions of Property Appreciation, BTC Gains, and Cash Distributions.
 
-Alternatively, import the `run_hybrid_model` function into a notebook or
-another script and call it with your own assumptions.  The function returns
-both a pandas ``DataFrame`` with monthly results and a summary dictionary.
+![Capital Breakdown](outputs/cap_breakdown.png)
 
-## Key References
+## 5. Halving Scenario Metrics
+Here we compare outcomes under the HPR (Halving Price Regression) model:
 
-The assumptions in this model are grounded in publicly available information
-about Cardone Capital’s hybrid funds:
+| Scenario | IRR | NPV | Final BTC Value |
+|----------|-----|-----|-----------------|
+| Blue | 8.18% | $32,784,307 | $3,904 |
+| Green | 8.18% | $32,784,307 | $7,808 |
+| Yellow | 8.18% | $32,784,307 | $15,617 |
+| Red | 8.18% | $32,784,307 | $62,467 |
 
-* **Miami River Fund:**  A 346‑unit multifamily property paired with \$15 million
-  in Bitcoin; the fund reinvests part of its monthly cash flow into BTC【556331809607434†L28-L37】.
-* **Boca Raton Fund:**  A 366‑unit deal that adds \$100 million (≈1 000 BTC) to the
-  Bitcoin treasury and advertises an 8 % preferred return【140341013969425†L23-L68】.
-* **BTC Purchase:**  In June 2025 Cardone Capital purchased 1 000 BTC and plans
-  to expand to 4 000 BTC by the end of the year【300627256761090†L90-L96】.  They use
-  low‑interest refinancing to finance these acquisitions【300627256761090†L90-L96】.
-* **Converting Rent to Bitcoin:**  Grant Cardone has noted that converting 12 years
-  of rent checks into BTC could have transformed \$160 million into nearly
-  \$3 billion【140341013969425†L93-L98】, underpinning the strategy of reinvesting
-  rental income into Bitcoin.
+## 6. Bitcoin Halving Regression Context
+The HPR (Halving Price Regression) model smooths out hype cycles and shows a conservative long-term Bitcoin price trajectory. This chart overlays historical BTC prices with the regression bands.
+
+![BTC Regression](outputs/btc_regression.png)
+
+## 7. Key Findings
+- Real estate provides stable appreciation and steady cash flow.
+- Bitcoin adds asymmetric upside, with convexity tied to the halving cycles.
+- Even conservative BTC growth assumptions improve the overall IRR and NPV.
+- In optimistic halving scenarios, Bitcoin could eclipse real estate’s contribution.
+
+## 8. Glossary of Financial Metrics
+**IRR (Internal Rate of Return):** The annualized rate of return at which the net present value (NPV) of all future cash flows equals zero. In other words, it’s the effective yearly return considering both the size *and* timing of cash flows. Useful for comparing projects.
+
+**NPV (Net Present Value):** The dollar value today of all expected future cash flows (rents, distributions, property sale, Bitcoin liquidation), discounted back at a chosen rate (e.g., loan interest or required return). A positive NPV means the project creates value above its cost of capital.
+
+👉 *Quick takeaway:* IRR tells you the % return. NPV tells you the $ value created today. Both help investors judge if the Real Estate + Bitcoin strategy is attractive.
+➡️ **Overall Takeaway**: This hybrid model balances the **security of property** with the **convexity of Bitcoin**, making it a stable bet with asymmetric upside.
