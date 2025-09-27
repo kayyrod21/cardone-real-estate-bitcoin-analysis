@@ -41,6 +41,24 @@ plot_portfolio_comp(df, save_path="outputs/portfolio_comp.png")  # <-- pass df
 print("  - Generating Portfolio Pie chart")
 plot_portfolio_pie(df, save_path="outputs/portfolio_pie.png")  # <-- pass df
 
+# Verify all charts were generated
+import os
+required_charts = [
+    "outputs/overall.png",
+    "outputs/btc_regression.png", 
+    "outputs/portfolio_comp.png",
+    "outputs/portfolio_comp_alt.png",
+    "outputs/portfolio_pie.png",
+    "outputs/cap_breakdown.png",
+    "outputs/capital_breakdown.png"
+]
+
+missing_charts = [chart for chart in required_charts if not os.path.exists(chart)]
+if missing_charts:
+    print(f"⚠️  Warning: Missing charts: {missing_charts}")
+else:
+    print("✅ All charts generated successfully")
+
 # Build README.md (repo homepage)
 with open("README.md", "w") as f:
     f.write("# Real Estate + Bitcoin Portfolio Analysis\n\n")
@@ -49,15 +67,18 @@ with open("README.md", "w") as f:
             "versus a hybrid allocation into BTC, modeled under different halving scenarios.\n\n")
 
     # --- Section 1 ---
-    f.write("## 1. Total Portfolio Value Under Halving Scenarios\n")
-    f.write("This chart shows how the portfolio grows over 10 years, depending on "
-            "which Bitcoin halving band (Blue, Green, Yellow, Red) it follows.\n\n")
+    f.write("## 1. Overall Strategy Comparison\n")
+    f.write("This heatmap provides a high-level comparison of the three strategies across "
+            "**Liquidity**, **Capital Lockup**, **Human Effort**, and **Return Potential**.\n\n")
     f.write("![Overall Portfolio](outputs/overall.png)\n\n")
 
     # --- Section 2 ---
     f.write("## 2. Portfolio Composition Over Time\n")
     f.write("Even small BTC allocations compound over time.\n\n")
-    f.write("![Portfolio Composition](outputs/portfolio_comp.png)\n\n")
+    f.write("![Portfolio Composition](outputs/portfolio_comp.png)\n")
+    f.write("*Line chart showing Bitcoin vs Real Estate allocation over time*\n\n")
+    f.write("![Portfolio Composition (Stacked)](outputs/portfolio_comp_alt.png)\n")
+    f.write("*Alternative stacked area chart view of portfolio composition*\n\n")
 
     # --- Section 3 ---
     f.write("## 3. Portfolio Allocation: Start vs End\n")
@@ -95,6 +116,9 @@ with open("README.md", "w") as f:
     f.write("- Even conservative BTC assumptions improve IRR and NPV.\n\n")
 
     f.write("➡️ **Overall Takeaway**: This hybrid model balances the **security of property** "
-            "with the **convexity of Bitcoin**, making it a stable bet with asymmetric upside.\n")
+            "with the **convexity of Bitcoin**, making it a stable bet with asymmetric upside.\n\n")
+    
+    f.write("---\n\n")
+    f.write("📖 **For detailed analysis and methodology, see [ANALYSIS.md](ANALYSIS.md)**\n")
 
 print("\n✅ README.md (homepage) regenerated with updated charts and metrics")

@@ -123,3 +123,10 @@ BTC gains exceeded cash distributions — showing liquidity in USD terms underpe
 **NPV (Net Present Value):** The dollar value today of all expected future cash flows (rents, distributions, property sale, Bitcoin liquidation), discounted back at a chosen rate (e.g., loan interest or required return). A positive NPV means the project creates value above its cost of capital.
 
 👉 *Quick takeaway:* IRR tells you the % return. NPV tells you the $ value created today. Both help investors judge if the Real Estate + Bitcoin strategy is attractive.
+
+---
+
+## 📚 Additional Resources
+
+- 📖 [Detailed Analysis](ANALYSIS.md) - Comprehensive strategy breakdown and methodology
+- 🔗 [Grant Cardone's Strategy](https://grantcardone.com) - Original inspiration
