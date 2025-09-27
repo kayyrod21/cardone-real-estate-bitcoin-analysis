@@ -1,69 +1,50 @@
 # Real Estate + Bitcoin Portfolio Analysis
 
-This project explores Grant Cardone's strategy of using rental cash flow to accumulate Bitcoin. It compares real estate-only returns versus a hybrid allocation into BTC, modeled under different halving scenarios.
+This project explores **Grant Cardone’s proposal** of combining real estate cash flows with Bitcoin accumulation.  
+By modeling cash flows from a multifamily property and allocating part of the free cash flow to Bitcoin,  
+we can evaluate whether this hybrid portfolio offers **stable income + asymmetric upside**.
 
-## 1. Total Portfolio Value Under Halving Scenarios
-This chart shows how the portfolio grows over 10 years, depending on which Bitcoin halving band (Blue, Green, Yellow, Red) it follows.
+---
 
-![Overall Portfolio](outputs/overall.png)
-
-## 2. Portfolio Composition Over Time
-The stack plot illustrates how the share of Bitcoin vs Real Estate evolves. Even small BTC allocations compound over time.
-
-![Portfolio Composition](outputs/portfolio_comp.png)
-
-## 3. Portfolio Allocation: Start vs End
-Comparing Year 0 and Year 10. Initially, the portfolio is nearly 100% real estate. By Year 10, Bitcoin has grown to ~7–10% under base case assumptions.
-
-![Portfolio Pie](outputs/portfolio_pie.png)
-
-## 4. Base Case Summary Metrics
-These are the outputs from the base case (10% BTC growth, 10-year hold period):
-
-- **Equity Investment**: $94,000,000
-- **Final Property Value**: $315,820,349
-- **Final BTC Value**: $24,877,999
-- **Sale Proceeds**: $174,820,349
-- **IRR**: 8.68%
-- **NPV**: $38,891,861
-
-## 4b. Capital Gains Breakdown (Base Case)
-- **Property Appreciation**: $221,820,349
-- **BTC Gains**: $24,877,999
-- **Cash Distributions**: $14,818,800
-- **Total Value at Exit**: $214,517,148
-- **Net Gain (Total – Equity Investment)**: $120,517,148
-
-## 4c. Visual Breakdown of Capital Gains
-This stacked bar chart shows the relative contributions of Property Appreciation, BTC Gains, and Cash Distributions.
-
-![Capital Breakdown](outputs/cap_breakdown.png)
-
-## 5. Halving Scenario Metrics
-Here we compare outcomes under the HPR (Halving Price Regression) model:
-
-| Scenario | IRR | NPV | Final BTC Value |
-|----------|-----|-----|-----------------|
-| Blue | 8.18% | $32,784,307 | $3,904 |
-| Green | 8.18% | $32,784,307 | $7,808 |
-| Yellow | 8.18% | $32,784,307 | $15,617 |
-| Red | 8.18% | $32,784,307 | $62,467 |
-
-## 6. Bitcoin Halving Regression Context
-The HPR (Halving Price Regression) model smooths out hype cycles and shows a conservative long-term Bitcoin price trajectory. This chart overlays historical BTC prices with the regression bands.
-
-![BTC Regression](outputs/btc_regression.png)
-
-## 7. Key Findings
+## Key Findings
 - Real estate provides stable appreciation and steady cash flow.
-- Bitcoin adds asymmetric upside, with convexity tied to the halving cycles.
-- Even conservative BTC growth assumptions improve the overall IRR and NPV.
-- In optimistic halving scenarios, Bitcoin could eclipse real estate’s contribution.
+- Even small Bitcoin allocations compound dramatically over a 10-year horizon.
+- By the end of the holding period, **Bitcoin gains exceed cash flow distributions** (in USD terms), highlighting Bitcoin’s role as both an inflation hedge and an asymmetric bet.
+- In optimistic halving scenarios, Bitcoin’s contribution can eclipse real estate.
 
-## 8. Glossary of Financial Metrics
-**IRR (Internal Rate of Return):** The annualized rate of return at which the net present value (NPV) of all future cash flows equals zero. In other words, it’s the effective yearly return considering both the size *and* timing of cash flows. Useful for comparing projects.
+📊 See the full deep-dive here → [REPORT.md](REPORT.md)
 
-**NPV (Net Present Value):** The dollar value today of all expected future cash flows (rents, distributions, property sale, Bitcoin liquidation), discounted back at a chosen rate (e.g., loan interest or required return). A positive NPV means the project creates value above its cost of capital.
+---
 
-👉 *Quick takeaway:* IRR tells you the % return. NPV tells you the $ value created today. Both help investors judge if the Real Estate + Bitcoin strategy is attractive.
-➡️ **Overall Takeaway**: This hybrid model balances the **security of property** with the **convexity of Bitcoin**, making it a stable bet with asymmetric upside.
+## Highlight Chart: Capital Gains Breakdown
+This chart shows where investor returns really come from over a 10-year hold.  
+While real estate remains the backbone, **Bitcoin eventually contributes more than cash distributions**.
+
+![Capital Breakdown](outputs/capital_breakdown.png)
+
+---
+
+## Why This Matters
+This analysis sits at the intersection of:
+- 🏠 **Real Estate Investing** – traditionally valued for stability, tax benefits, and long-term debt leverage.
+- ₿ **Bitcoin** – a scarce digital asset with halving cycles and exponential upside potential.
+- 💡 **Hybrid Portfolio Construction** – balancing stability with convexity.
+
+---
+
+## Related Reading
+To give context for this hybrid strategy:
+- [Grant Cardone: “Combining RE & BTC and get a super power investment” (X post)](https://x.com/GrantCardone/status/1959015144156987876)  
+- [NYTimes: Bitcoin’s Place in Institutional Portfolios](https://www.nytimes.com/) *(example, can be swapped for a better source)*  
+- [Fidelity Digital Assets: Bitcoin First – Why Investors Need to Consider Bitcoin Separately](https://www.fidelitydigitalassets.com/)  
+- [ARK Invest: Big Ideas – Bitcoin as a Monetary Asset](https://ark-invest.com/big-ideas/)  
+
+---
+
+## Tech & Methods
+- Python financial modeling (cash flows, IRR, NPV).  
+- Custom Bitcoin Halving Price Regression (HPR) model.  
+- Matplotlib for portfolio and scenario visualization.  
+- GitHub repo structured as a **sample financial analysis project** for recruiters.
+
+---
