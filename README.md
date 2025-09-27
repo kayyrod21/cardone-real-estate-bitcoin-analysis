@@ -53,4 +53,4 @@ The HPR (Halving Price Regression) model smooths out hype cycles and shows a con
 
 ---
 
-📖 **For detailed analysis and methodology, see [ANALYSIS.md](ANALYSIS.md)**
+📖 **For detailed analysis and methodology, see [REPORT.md](REPORT.md)**

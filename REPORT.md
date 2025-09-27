@@ -128,5 +128,5 @@ BTC gains exceeded cash distributions — showing liquidity in USD terms underpe
 
 ## 📚 Additional Resources
 
-- 📖 [Detailed Analysis](ANALYSIS.md) - Comprehensive strategy breakdown and methodology
+- 📖 [Detailed Analysis](REPORT.md) - This comprehensive report
 - 🔗 [Grant Cardone's Strategy](https://grantcardone.com) - Original inspiration

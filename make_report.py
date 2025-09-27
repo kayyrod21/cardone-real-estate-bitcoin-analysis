@@ -38,6 +38,9 @@ plot_overall(df, save_path="outputs/overall.png")   # <-- pass df
 print("  - Generating Portfolio Composition chart")
 plot_portfolio_comp(df, save_path="outputs/portfolio_comp.png")  # <-- pass df
 
+print("  - Generating Portfolio Composition (stacked) chart")
+plot_portfolio_comp(df, save_path="outputs/portfolio_comp_alt.png", mode="stacked")  # <-- pass df
+
 print("  - Generating Portfolio Pie chart")
 plot_portfolio_pie(df, save_path="outputs/portfolio_pie.png")  # <-- pass df
 
@@ -119,6 +122,6 @@ with open("README.md", "w") as f:
             "with the **convexity of Bitcoin**, making it a stable bet with asymmetric upside.\n\n")
     
     f.write("---\n\n")
-    f.write("📖 **For detailed analysis and methodology, see [ANALYSIS.md](ANALYSIS.md)**\n")
+    f.write("📖 **For detailed analysis and methodology, see [REPORT.md](REPORT.md)**\n")
 
 print("\n✅ README.md (homepage) regenerated with updated charts and metrics")
